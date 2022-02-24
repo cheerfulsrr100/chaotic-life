@@ -1,0 +1,14 @@
+server:
+  port: 9999
+
+spring:
+  datasource:
+    username: root
+    password: ${CHAOTIC_LIFE_PASSWORD}
+    url: 162.14.100.193:53306
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-test-query: SELECT 1 FROM DUAL
+mybatis:
+  type-aliases-package: cc.greekn
+
