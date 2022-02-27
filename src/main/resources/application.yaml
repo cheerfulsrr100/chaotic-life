@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    username: root
+    username: ${CHAOTIC_LIFE_USERNAME}
     password: ${CHAOTIC_LIFE_PASSWORD}
-    url: 162.14.100.193:53306
+    url: ${CHAOTIC_LIFE_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-test-query: SELECT 1 FROM DUAL
