@@ -1,5 +1,5 @@
 server:
-  port: 9999
+  port: 9988
 
 spring:
   datasource:
@@ -9,6 +9,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-test-query: SELECT 1 FROM DUAL
+      maximum-pool-size: 20
 mybatis:
-  type-aliases-package: cc.greekn
-
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
