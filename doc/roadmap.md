@@ -1,1 +1,2 @@
-1. 2022年3月7日 后端准备更换为nodejs技术栈
+- 2022年3月7日 后端准备更换为nodejs技术栈
+  - express + sequelize
