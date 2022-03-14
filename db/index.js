@@ -1,11 +1,11 @@
-const { sequelize } = require('./creator')
-const User = require('./User')
+const { sequelize } = require('./creator');
+const User = require('./User');
 const {
   Ledger,
   BalanceSheet,
   ExpenseType,
-  InstallmentDetail
-} = require('./account')
+  InstallmentDetail,
+} = require('./account');
 
 module.exports = {
   sequelize,
@@ -13,5 +13,5 @@ module.exports = {
   Ledger,
   BalanceSheet,
   ExpenseType,
-  InstallmentDetail
+  InstallmentDetail,
 };
