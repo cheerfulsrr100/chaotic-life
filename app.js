@@ -40,6 +40,13 @@ const verifyToken = function (req, res, next) {
 };
 
 app.use(unless(verifyToken, '/user/login', '/user/register'));
+app.use('*', function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header('Access-Control-Allow-Methods', '*');
+  res.header('Content-Type', 'application/json;charset=utf-8');
+  next();
+});
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/account', expenseRecordRouter);
