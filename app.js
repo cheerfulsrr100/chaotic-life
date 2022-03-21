@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const expenseRecordRouter = require('./routes/account/expenseRecord');
 
 const app = express();
 
@@ -31,12 +32,7 @@ const verifyToken = function (req, res, next) {
   const jwtToken = authHeader.match(tokenRegex).pop();
   if (jwtToken !== undefined) {
     try {
-      jwt.verify(jwtToken, 'greekn');
-      req.user = {
-        id: 1,
-        name: 'test',
-      };
-      return [req, res];
+      req.jwt_payload = jwt.verify(jwtToken, 'greekn');
     } catch (err) {
       res.json({ msg: 'token invalid' });
     }
@@ -46,10 +42,11 @@ const verifyToken = function (req, res, next) {
 app.use(unless(verifyToken, '/user/login', '/user/register'));
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
+app.use('/account', expenseRecordRouter);
 app.use(
   '/test',
   express.Router().get('', function (req, res, next) {
-    res.json({ msg: 'ok' });
+    res.json({ msg: 'ok', user: req.jwt_payload });
   })
 );
 
