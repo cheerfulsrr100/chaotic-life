@@ -1,11 +1,11 @@
-const Ledger = require('./Ledger');
+const ExpenseRecord = require('./ExpenseRecord');
 const BalanceSheet = require('./BalanceSheet');
 const ExpenseType = require('./ExpenseType');
-const InstallmentDetail = require('./InstallmentDetail');
+const InstallmentRecordDetail = require('./InstallmentRecordDetail');
 
 module.exports = {
-  Ledger,
+  ExpenseRecord,
   BalanceSheet,
   ExpenseType,
-  InstallmentDetail,
+  InstallmentRecordDetail,
 };

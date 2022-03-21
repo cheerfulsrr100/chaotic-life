@@ -1,17 +1,72 @@
-create database chaotic_life;
+-- chaotic_life_balance_sheet: table
+CREATE TABLE `chaotic_life_balance_sheet` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL COMMENT 'foreign key of user',
+  `cash` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '现金',
+  `account_receivable` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '应收账款',
+  `prepaid_expenses` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '待摊费用',
+  `account_payable` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '应付账款',
+  `retained_earning` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '留存收益',
+  `profit` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '盈利',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_delete` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='资产负债表';
 
-create table if not exists `chaotic_life_user`
-(
-    `user_id`           int unsigned primary key auto_increment,
-    `user_name`         varchar(20) not null,
-    `user_phone_number` varchar(11),
-    `user_email`        varchar(40)
-) engine = innodb
-  default charset = utf8mb4;
+-- chaotic_life_expense_record: table
+CREATE TABLE `chaotic_life_expense_record` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL COMMENT 'foreign key of user',
+  `amount` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '费用金额',
+  `expense_type_id` int unsigned NOT NULL COMMENT 'foreign key of expense_type',
+  `payment_method` tinyint(1) NOT NULL DEFAULT '0' COMMENT '付款方式. 0:一次性付款(full), 1:分期付款(installment)',
+  `expense_date` date NOT NULL,
+  `expense_comment` varchar(50) DEFAULT NULL COMMENT '备注',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_delete` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='明细';
 
-create table if not exists `chaotic_life_bill_kind`
-(
-  `bill_kind_id` int unsigned primary key auto_increment,
-  `user_id`      int unsigned not null
-) engine = innodb
-default charset = utf8mb4;
+-- chaotic_life_expense_type: table
+CREATE TABLE `chaotic_life_expense_type` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL COMMENT 'foreign key of user',
+  `type_name` varchar(20) NOT NULL COMMENT '费用类型名称',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_delete` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='费用类型';
+
+-- chaotic_life_installment_record_detail: table
+CREATE TABLE `chaotic_life_installment_record_detail` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `expense_record_id` int unsigned NOT NULL COMMENT 'foreign key of ledger',
+  `expense_record_amount` decimal(8,2) NOT NULL COMMENT '分期总额(冗余)',
+  `start_date` date NOT NULL COMMENT '分期开始日期',
+  `end_date` date NOT NULL COMMENT '分期结束日期',
+  `repayment_period` int unsigned NOT NULL COMMENT '分期期数',
+  `remaining_repayment_period` int unsigned NOT NULL COMMENT '分期剩余期数',
+  `remaining_repayment` decimal(8,2) NOT NULL COMMENT '剩余应付金额',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_delete` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='分期记录明细';
+
+-- chaotic_life_user: table
+CREATE TABLE `chaotic_life_user` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `phone_number` varchar(11) DEFAULT NULL,
+  `email` varchar(40) DEFAULT NULL,
+  `last_login_time` datetime DEFAULT NULL,
+  `create_time` datetime NOT NULL,
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  `is_delete` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+

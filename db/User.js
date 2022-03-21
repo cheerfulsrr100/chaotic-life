@@ -1,7 +1,9 @@
-const { modelCreate } = require('./creator');
+const { modelCreate, sequelize } = require('./creator');
 const { DataTypes, Model } = require('sequelize');
 
-class User extends Model {}
+class User extends Model {
+  exist() {}
+}
 
 const [attributes, options] = modelCreate(
   {

@@ -1,7 +1,7 @@
 const { modelCreate } = require('../creator');
 const { DataTypes, Model } = require('sequelize');
 
-class Ledger extends Model {}
+class ExpenseRecord extends Model {}
 
 const [attributes, options] = modelCreate(
   {
@@ -13,9 +13,9 @@ const [attributes, options] = modelCreate(
         key: 'id',
       },
     },
-    expenseAmount: {
+    amount: {
       type: DataTypes.DECIMAL(8, 2),
-      field: 'expense_amount',
+      field: 'amount',
     },
     expenseTypeId: {
       type: DataTypes.INTEGER,
@@ -24,10 +24,15 @@ const [attributes, options] = modelCreate(
         model: 'ExpenseType',
         key: 'id',
       },
+      allowNull: false,
     },
     paymentMethod: {
       type: DataTypes.TINYINT,
       field: 'payment_method',
+    },
+    expenseDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
     },
     expenseComment: {
       type: DataTypes.STRING,
@@ -35,10 +40,10 @@ const [attributes, options] = modelCreate(
     },
   },
   {
-    tableName: 'chaotic_life_ledger',
-    modelName: 'Ledger',
+    tableName: 'chaotic_life_expense_record',
+    modelName: 'ExpenseRecord',
   }
 );
-Ledger.init(attributes, options);
+ExpenseRecord.init(attributes, options);
 
-module.exports = Ledger;
+module.exports = ExpenseRecord;

@@ -1,17 +1,17 @@
 const { sequelize } = require('./creator');
 const User = require('./User');
 const {
-  Ledger,
+  ExpenseRecord,
   BalanceSheet,
   ExpenseType,
-  InstallmentDetail,
+  InstallmentRecordDetail,
 } = require('./account');
 
 module.exports = {
   sequelize,
   User,
-  Ledger,
+  ExpenseRecord,
   BalanceSheet,
   ExpenseType,
-  InstallmentDetail,
+  InstallmentRecordDetail,
 };

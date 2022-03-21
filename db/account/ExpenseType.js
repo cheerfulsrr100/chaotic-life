@@ -12,7 +12,7 @@ const [attributes, options] = modelCreate(
         key: 'id',
       },
     },
-    name: DataTypes.STRING,
+    type_name: DataTypes.STRING,
   },
   {
     tableName: 'chaotic_life_expense_type',
