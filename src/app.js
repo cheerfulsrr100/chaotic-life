@@ -5,10 +5,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const expenseRecordRouter = require('./routes/account/expenseRecord');
+const usersRouter = require('./modules/users');
+const expenseRecordRouter = require('./modules/account/expenseRecord');
 
 const app = express();
 
@@ -20,7 +20,9 @@ app.use(cookieParser());
 const unless = (middleware, ...paths) => {
   return function (req, res, next) {
     const pathCheck = paths.some((path) => path === req.path);
-    if (!pathCheck) middleware(req, res, next);
+    if (!pathCheck) {
+      middleware(req, res, next);
+    }
     next();
   };
 };
@@ -47,7 +49,16 @@ app.use('*', function (req, res, next) {
   res.header('Content-Type', 'application/json;charset=utf-8');
   next();
 });
-app.use('/', indexRouter);
+
+// TODO move to bin/start, use http-proxy
+app.use(
+  '**',
+  createProxyMiddleware({
+    target: 'http://localhost:3000',
+    changeOrigin: true,
+    ws: true,
+  })
+);
 app.use('/user', usersRouter);
 app.use('/account', expenseRecordRouter);
 app.use(

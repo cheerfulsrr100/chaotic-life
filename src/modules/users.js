@@ -1,5 +1,5 @@
 const express = require('express');
-const { User } = require('../db');
+const { User } = require('../models');
 const { log } = require('debug');
 const router = express.Router();
 const validator = require('validator');

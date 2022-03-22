@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { ExpenseRecord, User } = require('../../db');
+const { ExpenseRecord, User } = require('../../models');
 const validator = require('validator');
 
 router.post('/record/add', function (req, res, next) {

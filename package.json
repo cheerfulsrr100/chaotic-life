@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node bin/www",
+    "start": "node bin/start",
     "test": "jest",
     "prepare": "husky install",
     "format": "npx prettier --write ."
@@ -22,6 +22,7 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "http-proxy-middleware": "^2.0.4",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "lint-staged": "^12.3.5",
